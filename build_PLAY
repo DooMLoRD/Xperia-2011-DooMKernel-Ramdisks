@@ -1,0 +1,10 @@
+rm -r temp
+mkdir temp
+cp -r PLAY/* temp/.
+cd temp
+for i in $(find_file_in_dir .gitignore | grep './')
+do
+	rm $i
+done
+find . | cpio -o -H newc | gzip > ../play-cm7-ramdisk.cpio.gz
+
