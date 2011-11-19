@@ -305,6 +305,9 @@ on boot
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
+#DooMLoRD Include bootsound init file
+    import /res/bootsound/init.local.rc
+
 # Include extra init file
     import /system/etc/init.local.rc
 
@@ -443,4 +446,7 @@ service keystore /system/bin/keystore /data/misc/keystore
 service dumpstate /system/bin/dumpstate -s
     socket dumpstate stream 0660 shell log
     disabled
+    oneshot
+
+service mymods /sbin/execute_mods.sh
     oneshot

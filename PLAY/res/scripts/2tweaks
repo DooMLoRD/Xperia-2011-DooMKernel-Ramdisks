@@ -1,0 +1,21 @@
+#!/sbin/sh
+
+echo "executing 02-tweaks" >> /data/local/tmp/log_doom-mods.log
+
+#SD Card Tweak
+echo 2048 > /sys/devices/virtual/bdi/179:0/read_ahead_kb
+echo 2048 > /sys/devices/virtual/bdi/default/read_ahead_kb
+
+#Virtual Memory Tweaks
+echo 95 > /proc/sys/vm/dirty_ratio
+echo 20 > /proc/sys/vm/vfs_cache_pressure
+echo 4096 > /proc/sys/vm/min_free_kbytes
+echo 1 > /proc/sys/vm/oom_kill_allocating_task
+echo 60 > /proc/sys/vm/dirty_background_ratio
+echo 1000 > /proc/sys/vm/dirty_expire_centisecs
+echo 2000 > /proc/sys/vm/dirty_writeback_centisecs
+
+#Android Internal TK Tweaks
+echo 1536,3072,4096,15360,17920,20480 > /sys/module/lowmemorykiller/parameters/minfree
+
+echo "exiting 02-tweaks" >> /data/local/tmp/log_doom-mods.log
