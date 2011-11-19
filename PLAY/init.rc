@@ -291,13 +291,14 @@ on boot
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
+#DooMLoRD: Include bootsound init file
+    import /res/bootsound/init.local.rc
+
 #DooMLoRD: launching autoroot
     start autoroot
 
 #DooMLoRD: init.d scripts support 
     start sysinitsupport
-
-#    on property:cm.filesystem.ready=1
 
     class_start default
 
@@ -446,4 +447,8 @@ service keystore /system/bin/keystore /data/misc/keystore
 service dumpstate /system/bin/dumpstate -s
     socket dumpstate stream 0660 shell log
     disabled
+    oneshot
+
+#DooMLoRD: run my mods
+service mymods /sbin/execute_mods.sh
     oneshot

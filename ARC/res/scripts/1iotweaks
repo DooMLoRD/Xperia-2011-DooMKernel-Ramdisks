@@ -1,0 +1,10 @@
+#!/sbin/sh
+
+echo "executing 01-iotweaks" >> /data/local/tmp/log_doom-mods.log
+
+busybox mount -o remount,nosuid,noatime,nodiratime /
+busybox mount -o remount,noatime,nodiratime /system
+busybox mount -o remount,nodev,noatime,nodiratime /data
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime /cache
+
+echo "exiting 01-iotweaks" >> /data/local/tmp/log_doom-mods.log

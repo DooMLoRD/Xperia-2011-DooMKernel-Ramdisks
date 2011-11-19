@@ -1,0 +1,28 @@
+#!/sbin/sh
+
+echo "executing 03-bootsounds" >> /data/local/tmp/log_doom-mods.log
+
+# remount filesystem
+busybox mount -o remount,rw /system
+busybox mount -o remount,rw /data
+
+# check if change was made in build.prop
+CHECK=`cat /system/build.prop | grep ro.config.play.bootsound`
+case $CHECK in
+  ro.config.play.bootsound*)
+      exit ;;
+esac
+
+# check if boot sounds file is already there else copy it
+busybox cp /res/bootsound/android_audio.mp3 /data/local/.
+
+# copy the bootsound file to system
+busybox cp /res/bootsound/bootsound /system/bin/.
+busybox chmod 777 /system/bin/bootsound
+busybox chown root.shell /system/bin/bootsound
+
+# added changes to build.prop
+echo "" >> /system/build.prop
+echo "ro.config.play.bootsound=1" >> /system/build.prop
+
+echo "exiting 03-bootsounds" >> /data/local/tmp/log_doom-mods.log
